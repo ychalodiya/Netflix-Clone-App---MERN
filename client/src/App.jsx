@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Netflix from './pages/Netflix';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Login from './pages/Login.jsx';
+import Signup from './pages/Signup.jsx';
 
 function App() {
 	return (
