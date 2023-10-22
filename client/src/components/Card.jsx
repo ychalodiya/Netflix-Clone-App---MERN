@@ -7,10 +7,30 @@ import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
 import { BiChevronDown } from 'react-icons/bi';
 import { BsCheck } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { firebaseAuth } from '../utils/firebase_config.js';
+import { onAuthStateChanged } from 'firebase/auth';
+import axios from 'axios';
 
 export default React.memo(function Card({ movieData, isLiked }) {
 	const [isHovered, setIsHovered] = useState(false);
+	const [email, setEmail] = useState(undefined);
 	const navigate = useNavigate();
+
+	onAuthStateChanged(firebaseAuth, (current) => {
+		if (current) setEmail(current.email);
+		else navigate('/login');
+	});
+
+	const addtoList = async () => {
+		try {
+			await axios.post('http://localhost:4000/api/user/add', {
+				email,
+				data: movieData,
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<Container
@@ -50,7 +70,7 @@ export default React.memo(function Card({ movieData, isLiked }) {
 								{isLiked ? (
 									<BsCheck title="Remove From List" />
 								) : (
-									<AiOutlinePlus title="Add to my list" />
+									<AiOutlinePlus title="Add to my list" onClick={addtoList} />
 								)}
 							</div>
 							<div className="info">
