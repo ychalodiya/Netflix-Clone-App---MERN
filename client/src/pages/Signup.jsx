@@ -17,7 +17,7 @@ const Signup = () => {
 		password: '',
 	});
 
-	const signInHandler = async (e) => {
+	const signUpHandler = async (e) => {
 		try {
 			const { email, password } = formValues;
 			await createUserWithEmailAndPassword(firebaseAuth, email, password);
@@ -25,11 +25,10 @@ const Signup = () => {
 			console.log(err);
 		}
 	};
-	useEffect(() => {
-		onAuthStateChanged(firebaseAuth, (current) => {
-			if (current) navigate('/');
-		});
-	}, []);
+
+	onAuthStateChanged(firebaseAuth, (current) => {
+		if (current) navigate('/');
+	});
 
 	return (
 		<Container showPasswordField={showPasswordField}>
@@ -72,7 +71,7 @@ const Signup = () => {
 							</button>
 						)}
 					</div>
-					<button onClick={signInHandler}>Sign Up</button>
+					<button onClick={signUpHandler}>Sign Up</button>
 				</div>
 			</div>
 		</Container>
