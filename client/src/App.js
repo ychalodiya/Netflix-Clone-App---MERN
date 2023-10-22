@@ -1,11 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Netflix from './pages/Netflix';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
 	return (
-		<div className="App">
-			<h1>Netflix</h1>
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route exact path="/" element={<Netflix />} />
+				<Route exact path="/login" element={<Login />} />
+				<Route exact path="/signup" element={<Signup />} />
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
