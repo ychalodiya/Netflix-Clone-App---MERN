@@ -1,9 +1,12 @@
 import express from 'express';
-import { addToLikedMovies } from '../controllers/UserController.js';
+import {
+	addToLikedMovies,
+	getLikedMovies,
+} from '../controllers/UserController.js';
 
 const UserRouter = express.Router();
 
 UserRouter.post('/add', addToLikedMovies);
-UserRouter.get('/add', addToLikedMovies);
+UserRouter.get('/liked/:email', getLikedMovies);
 
 export default UserRouter;

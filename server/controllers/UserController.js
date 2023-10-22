@@ -26,4 +26,18 @@ const addToLikedMovies = async (req, res) => {
 	}
 };
 
-export { addToLikedMovies };
+const getLikedMovies = async (req, res) => {
+	try {
+		const { email } = req.params;
+		const user = await UserModel.findOne({ email });
+		if (user) {
+			return res.json({ msg: 'success', movies: user.likedMovies });
+		} else {
+			return res.json({ msg: 'User with given email not found' });
+		}
+	} catch (err) {
+		return res.json({ msg: 'Error while fetching liked movies list' });
+	}
+};
+
+export { addToLikedMovies, getLikedMovies };
