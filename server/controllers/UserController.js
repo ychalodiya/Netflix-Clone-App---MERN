@@ -40,4 +40,30 @@ const getLikedMovies = async (req, res) => {
 	}
 };
 
-export { addToLikedMovies, getLikedMovies };
+const removeLikedMovies = async (req, res) => {
+	try {
+		const { email, movieId } = req.body;
+		const user = await UserModel.findOne({ email });
+		if (user) {
+			const { likedMovies } = user;
+			const movieIndex = likedMovies.findIndex(({ id }) => id === movieId);
+			if (!movieIndex) return res.json(400).send({ msg: 'Movie not found' });
+			likedMovies.splice(movieIndex, 1);
+
+			await UserModel.findByIdAndUpdate(
+				user._id,
+				{
+					likedMovies,
+				},
+				{ new: true }
+			);
+			return res.json({ msg: 'Movie Deleted', movies: likedMovies });
+		} else {
+			await UserModel.create({ email, likedMovies: [data] });
+		}
+	} catch (err) {
+		return res.json({ msg: 'Error while removing liked movie from the list' });
+	}
+};
+
+export { addToLikedMovies, getLikedMovies, removeLikedMovies };
