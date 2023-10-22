@@ -8,7 +8,6 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
 	const navigate = useNavigate();
-	const [showPasswordField, setShowPasswordField] = useState(false);
 	const [formValues, setFormValues] = useState({
 		email: '',
 		password: '',

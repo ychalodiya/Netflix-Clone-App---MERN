@@ -3,7 +3,7 @@ import CardSlider from './CardSlider';
 
 export default React.memo(function Slider({ movies }) {
 	const getMoviesFromRange = (from, to) => {
-		return movies.slice(0, 10);
+		return movies.slice(from, to);
 	};
 
 	return (
